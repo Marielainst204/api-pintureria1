@@ -1,0 +1,8 @@
+env
+*/_pycache_
+*/*/__pycache__
+.env
+/static/img*.*
+.env.example
+
+
