@@ -11,7 +11,7 @@ proporcionado por el usuario sea seguro para guardarlo en el sistema de archivos
 # Si es necesario, pip install Werkzeug 
 from werkzeug.utils import secure_filename
 
-from app.models.product import Product
+from app.models.product import Producto
 from app.database import init_app, init_db
 
 """
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 d = os.path.dirname(__file__)
 os.chdir(d)
 
-ruta_destino = 'static/img/'
+ruta_destino ='static/img/'
 
 
 app = Flask(__name__)
@@ -41,8 +41,8 @@ def init_db_route():
 
 
 
-@app.route('/products', methods=['POST'])
-def create_product():
+@app.route('/producto', methods=['POST'])
+def create_producto():
     print("HOLA")
     # data = request.json
     data = request.form
@@ -89,7 +89,7 @@ def get_all_producto(): #FIJARSE SI ESTA BIEN
 
 @app.route('/producto/<int:id>', methods=['GET'])
 def get_by_id_producto(id):
-    product = Producto.get_by_id(id)
+    producto = Producto.get_by_id(id)
     if producto:
         return jsonify(producto.serialize())
     else:

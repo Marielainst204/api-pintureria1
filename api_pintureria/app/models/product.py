@@ -2,7 +2,7 @@ from app.database import get_db
 #from app.models.review import Review
 
 class Producto:
-    # Constructor de la clase Product
+    # Constructor de la clase Producto
     def __init__(self, id_producto=None, nombre=None, precio=None, poster_url=None, reviews=[]):
         self.id_producto = id_producto  # ID del producto, se asigna automáticamente para nuevas películas
         self.nombre = nombre  # Nombre del producto
@@ -26,7 +26,7 @@ class Producto:
             # Si el producto no tiene un ID, se inserta un nuevo registro en la base de datos
             cursor.execute("""
                 INSERT INTO productos (nombre, precio, poster_url) VALUES (%s, %s, %s)
-            """, (self.name,self.price,self.poster_url))
+            """, (self.nombre,self.precio,self.poster_url))
             self.id_producto = cursor.lastrowid  # Obtener el ID asignado por la base de datos
         db.commit()  # Confirmar la transacción
         cursor.close()
@@ -50,7 +50,7 @@ class Producto:
         """)  # Ejecutar la consulta para obtener todaslos productos con sus reseñas
         rows = cursor.fetchall()  # Obtener todos los resultados
         
-        products_dict = {}
+        productos_dict = {}
         
         for row in rows:
             id_producto = row[0]
@@ -58,14 +58,14 @@ class Producto:
                 productos_dict[id_producto] = Producto(
                     id_producto=row[0], nombre=row[1], precio=row[2], poster_url=row[3],  reviews=[]
                 )
-             if row[5] is not None:
-                 review = Review(
-                    id_review=row[5], id_product=row[0], reviewer_name=row[6], comment=row[7], #DUDA SI VA ESO
-                )
-                productos_dict[id_producto].reviews.append(review)
+            #  if row[5] is not None:
+            #      review = Review(
+            #         id_review=row[5], id_product=row[0], reviewer_name=row[6], comment=row[7], #DUDA SI VA ESO
+            #     )
+                # productos_dict[id_producto].reviews.append(review)
 
         cursor.close()
-        return list(products_dict.values())  # Devolver la lista de PRODUCTOS con sus reseñas
+        return list(productos_dict.values())  # Devolver la lista de PRODUCTOS con sus reseñas
 
     @staticmethod
     def get_by_id(producto_id):
