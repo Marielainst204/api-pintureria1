@@ -1,8 +1,10 @@
 import os, time
+from urllib import response
 # Instalar con pip install flask
 from flask import Flask, jsonify, request
 # Instalar con pip install flask-cors
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 
 """
 Para trabajar con archivos asegurar que un nombre de archivo 
@@ -31,10 +33,12 @@ ruta_destino ='static/img/'
 app = Flask(__name__)
 CORS(app)
 
+
 # Inicializar la base de datos con la aplicación Flask
 init_app(app)
 
 @app.route('/init-db')
+
 def init_db_route():
     init_db()
     return "Base de datos inicializada correctamente."
@@ -42,6 +46,7 @@ def init_db_route():
 
 
 @app.route('/producto', methods=['POST'])
+
 def create_producto():
     print("HOLA")
     # data = request.json
@@ -77,6 +82,7 @@ def create_producto():
 
 
 @app.route('/producto', methods=['GET'])
+
 def get_all_producto(): #FIJARSE SI ESTA BIEN
     producto = Producto.get_all()
     producto_json=[]
@@ -88,6 +94,7 @@ def get_all_producto(): #FIJARSE SI ESTA BIEN
 
 
 @app.route('/producto/<int:id>', methods=['GET'])
+
 def get_by_id_producto(id):
     producto = Producto.get_by_id(id)
     if producto:
@@ -96,6 +103,7 @@ def get_by_id_producto(id):
         return jsonify({'message': 'Producto no encontrado'}), 404
 
 @app.route('/producto/<int:id>', methods=['DELETE'])
+
 def delete_producto(id):
     producto = Producto.get_by_id(id)
     if not producto:
@@ -104,6 +112,7 @@ def delete_producto(id):
     return jsonify({'message': 'El producto fue borrado'})
 
 @app.route('/producto/<int:id>', methods=['PUT'])
+
 def update_producto(id):
     producto = Producto.get_by_id(id)
     if not producto:
@@ -120,3 +129,6 @@ def update_producto(id):
 if __name__ == '__main__':
      app.run(debug=True)
      #app.run(host='0.0.0.0', port=5000) #ver el puerto
+
+     response.headers['Access-Control-Allow-Origin'] = 'http://127.0.0.1:5502'
+       

@@ -3,12 +3,12 @@ from app.database import get_db
 
 class Producto:
     # Constructor de la clase Producto
-    def __init__(self, id_producto=None, nombre=None, precio=None, poster_url=None, reviews=[]):
+    def __init__(self, id_producto=None, nombre=None, precio=None, poster_url=None):
         self.id_producto = id_producto  # ID del producto, se asigna automáticamente para nuevas películas
         self.nombre = nombre  # Nombre del producto
         self.precio = precio  # Precio del producto
         self.poster_url = poster_url  # URL del póster del producto
-        self.reviews = reviews
+       
 
         # self.reviews = reviews if reviews is not None else []  # Lista de reseñas asociadas a la película
 
